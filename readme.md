@@ -6,3 +6,5 @@ docker run -d docker-ansible --build-arg id_rsa.pub
 ansible -i hosts all -m ping -u root -i hosts
 
 ./ansible-setup.py down
+
+https://linoxide.com/linux-how-to/started-ansible-command-line/
