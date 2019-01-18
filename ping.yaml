@@ -1,4 +1,8 @@
+# Group of hosts to apply tasks
 - hosts: all
+  # remote user in machine
   remote_user: root
+  # What is applied to the nodes
   tasks:
+    # ping module 
    - ping: 
