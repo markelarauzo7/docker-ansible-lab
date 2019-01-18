@@ -17,12 +17,9 @@ docker-compose up -d --no-build
 
 Ansible execution
 
-./ansible-setup.py up
+./ansible-setup.py check <network>
 
 ansible -i inventory all -m ping -u root
-
-./ansible-setup.py down
-
 
 # Ansible
 
