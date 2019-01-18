@@ -13,7 +13,7 @@ RUN apt-get update && \
 		python \
 		python-apt \
         iproute2
-RUN mkdir /var/run/sshd
+RUN mkdir -p /var/run/sshd
 COPY $id_rsa_pub /root/.ssh/authorized_keys
 EXPOSE 22
 

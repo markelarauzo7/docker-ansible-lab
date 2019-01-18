@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - id_rsa_pub
     image: docker-ansible
     restart: always
     deploy:

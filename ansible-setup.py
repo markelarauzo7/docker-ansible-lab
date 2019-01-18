@@ -7,7 +7,7 @@ from argparse import ArgumentParser
 
 def up():
     
-    string = os.popen('docker network inspect  bridge').read()
+    string = os.popen('docker network inspect docker_ansible').read()
     
     network = json.loads(string)
     
