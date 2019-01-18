@@ -5,12 +5,16 @@ import json
 from argparse import ArgumentParser
 
 
-def up():
+def check(network):
 
-    # @TODO if file exists in current directory execute down
+    exists = os.path.isfile('hosts')
+    
+    if exists:
+        clean()
 
-    # @TODO pass net as parameter
-    string = os.popen('docker network inspect docker_ansible').read()
+    print("Checking " + network + " docker network...")
+
+    string = os.popen('docker network inspect ' + network).read()
     
     network = json.loads(string)
     
@@ -19,32 +23,35 @@ def up():
     for id in containerIds:
         
         containerIp = os.popen("docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' " + id).read()
-        # @TODO add hosts directory to PWD
-        os.system('echo ' + containerIp.rstrip() + ' >> ./hosts')
+        print("Creating a inventory in current working directory...")
+        os.system('echo ' + containerIp.rstrip() + ' >> $PWD/inventory')
 
-    # @TODO add some output
+    print("Created hosts file.")
     
-def down():
-    os.system('rm hosts')
+def clean():
+    os.system('rm inventory')
 
 if __name__ == '__main__':
 
     options = {
-        "up" : up,
-        "down" : down,
+        "check" : check,
     }
     
     parser = ArgumentParser()
     parser.add_argument(
         "mode",
         nargs='?',
-        choices=['up', 'down'],
-        help="1. up: Check network and setup hosts for ansible 2. down: Remove hosts file"
+        choices=['check'],
+        help="Check network and setup hosts for ansible"
     )
-    # @TODO define argument for parameter
+    parser.add_argument(
+        "network",
+        nargs='?',
+        help="Docker network name to be checked"
+    )
 
     args = parser.parse_args()
     
-    options[args.mode]()
+    options[args.mode](args.network)
 
         

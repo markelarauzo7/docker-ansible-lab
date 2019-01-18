@@ -19,7 +19,7 @@ Ansible execution
 
 ./ansible-setup.py up
 
-ansible -i hosts all -m ping -u root
+ansible -i inventory all -m ping -u root
 
 ./ansible-setup.py down
 
@@ -39,7 +39,7 @@ https://serversforhackers.com/c/an-ansible2-tutorial
 6. Handlers: A Handler is exactly the same as a Task (it can do anything a Task can), but it will only run when called by another Task
 
 *Ansible facts all start with anisble_ and are globally available for use any place variables can be used: Variable files, Tasks, and Templates.
-ansible -i ./hosts all -m setup -u root
+ansible -i ./inventory all -m setup -u root
 
 ## Roles
 Roles have a directory structure like this:
