@@ -15,9 +15,10 @@ docker-compose build --build-arg id_rsa_pub=id_rsa.pub
 
 docker-compose up -d --no-build
 
+Ansible execution
 
 ./ansible-setup.py up
 
-ansible -i hosts all -m ping -u root -i hosts
+ansible -i hosts all -m ping -u root
 
 ./ansible-setup.py down
