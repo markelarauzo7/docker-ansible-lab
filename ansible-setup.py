@@ -6,6 +6,9 @@ from argparse import ArgumentParser
 
 
 def up():
+
+    # @TODO if file exists in current directory execute down
+
     # @TODO pass net as parameter
     string = os.popen('docker network inspect docker_ansible').read()
     
@@ -18,6 +21,8 @@ def up():
         containerIp = os.popen("docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' " + id).read()
         # @TODO add hosts directory to PWD
         os.system('echo ' + containerIp.rstrip() + ' >> ./hosts')
+
+    # @TODO add some output
     
 def down():
     os.system('rm hosts')
