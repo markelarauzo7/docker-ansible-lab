@@ -20,10 +20,12 @@ def check(network):
     
     containerIds = list(network[0]['Containers'].keys())
     
+    print("Creating a inventory in current working directory...")
+    
     for id in containerIds:
         
         containerIp = os.popen("docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' " + id).read()
-        print("Creating a inventory in current working directory...")
+        
         os.system('echo ' + containerIp.rstrip() + ' >> $PWD/inventory')
 
     print("Created hosts file.")
