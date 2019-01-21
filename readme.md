@@ -21,6 +21,8 @@ Ansible execution
 
 ansible -i inventory all -m ping -u root
 
+ansible-playbook -i inventory ansible/apache2.yaml
+
 # Ansible
 
 https://serversforhackers.com/c/an-ansible2-tutorial
