@@ -4,16 +4,80 @@
   remote_user: root
   # What is applied to the nodes
   tasks:
+
+  #  - name: Add apache2 ondrej repository
+  #    apt_repository: 
+  #      repo: ppa:ondrej/apache2
+  #      state: present
+  #      validate_certs: no
+    
+  #  - name: Add php ondrej repository
+  #    apt_repository: 
+  #      repo: ppa:ondrej/php
+  #      state: present
+  #      validate_certs: no
+
     - name: Update repositories cache
       apt:
         update_cache: yes
+
+    - name: Update all packages to the latest version
+      apt:
+        upgrade: dist
     
+    - name: Update repositories cache
+      apt:
+        update_cache: yes
+
+    - name: Prueba
+      apt_repository:
+        repo: deb http://archive.canonical.com/ubuntu hardy partner
+        state: present
+
     - name: Install Apache2
       apt:
         name: apache2
         state: present
-    
+
+    - name: Install a list of php packages
+      apt:
+        name: "{{ packages }}"
+        install_recommends: no
+      vars:
+        packages:
+        - php7.2
+        - php7.2-fpm
+        - php7.2-common
+        - php7.2-cli
+        - php7.2-mbstring
+        - php7.2-intl
+        - php7.2-xml
+        - php7.2-zip
+        - php7.2-bcmath
+        - php7.2-dom
+        - php7.2-curl
+
+    - name: Remove useless packages from the cache and dependencies that are no longer required
+      apt:
+        autoclean: yes
+        autoremove: yes
+
+    - name: Enable/disable apache modules
+      apache2_module:
+        state: present
+        name: "{{ modules }}"
+      vars:
+        modules:
+        - rewrite
+        - brotli
+        - http2
+        - actions
+        - fcgid
+        - alias
+        - proxy_fcgi
+
     - name: Check Apache2 is running and enabled for start on boot
       systemd: 
         state:  started
         enabled:  yes
+    

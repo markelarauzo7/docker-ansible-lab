@@ -7,7 +7,7 @@ As a single container:
 
 docker build -t docker-ansible --build-arg id_rsa_pub=id_rsa.pub .
 
-docker run -d docker-ansible 
+docker run -d --rm --name docker-test docker-ansible 
 
 As a multi container application:
 
@@ -24,8 +24,6 @@ ansible -i inventory all -m ping -u root
 ansible-playbook -i inventory ansible/apache2.yaml
 
 # Ansible
-
-https://serversforhackers.com/c/an-ansible2-tutorial
 
 ## Ansible terminology
 
