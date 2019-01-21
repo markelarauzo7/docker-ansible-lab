@@ -1,0 +1,19 @@
+# Group of hosts to apply tasks
+- hosts: all
+  # remote user in machine
+  remote_user: root
+  # What is applied to the nodes
+  tasks:
+    - name: Update repositories cache
+      apt:
+        update_cache: yes
+    
+    - name: Install Apache2
+      apt:
+        name: apache2
+        state: present
+    
+    - name: Check Apache2 is running and enabled for start on boot
+      systemd: 
+        state:  started
+        enabled:  yes
